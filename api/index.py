@@ -38,14 +38,19 @@ def getTextFromGemini2():
     return ''
 
 @app.route('/openai')
-def openai(path):
-        print('******************')
-        response = client.chat.completions.create(
-        model="gpt-3.5-turbo",
-        messages=[{"role": "user", "content": "Where was it played?"}])
-        print(str(response))
-        print('----------------------------')
-        content = response.choices[0].message.content
-        print('*****')
-        print(type(content))
-        return content
+def openai():
+    print('******************')
+    response = client.chat.completions.create(
+    model="gpt-3.5-turbo",
+    messages=[{"role": "user", "content": "Where was it played?"}])
+    print(str(response))
+    print('----------------------------')
+    content = response.choices[0].message.content
+    print('*****')
+    print(type(content))
+    return content
+
+@app.route('/hi')
+def hi():
+	print('************')
+	return 'hi'
