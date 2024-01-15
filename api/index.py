@@ -6,11 +6,15 @@ from io import BytesIO
 from PIL import Image
 import base64
 
+from openai import OpenAI
+
 app = Flask(__name__)
 CORS(app)
 genai.configure(api_key='AIzaSyBW0hnVev4HsQFOFADGYCjGFHYeYCbn3D8')
 model = genai.GenerativeModel('gemini-pro')
 modelVision = genai.GenerativeModel('gemini-pro-vision')
+
+client = OpenAI(api_key = "sess-ho9TVlTUU4oHF4c3AMdEHhN8Nj9UgECXppcGW8Hx")
 
 @app.route('/')
 def home():
@@ -32,3 +36,16 @@ def getTextFromGemini2():
         response = modelVision.generate_content(image)
         return response.text
     return ''
+
+@app.route('/openai')
+def openai(path):
+        print('******************')
+        response = client.chat.completions.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "user", "content": "Where was it played?"}])
+        print(str(response))
+        print('----------------------------')
+        content = response.choices[0].message.content
+        print('*****')
+        print(type(content))
+        return content
