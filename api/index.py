@@ -54,3 +54,8 @@ def openai():
 def hi():
 	print('************')
 	return 'hi'
+
+@app.route('/hi2')
+def hi2():
+	print('************')
+	return 'hi2'
